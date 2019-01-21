@@ -1,19 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ijaaztello
-  Date: 1/19/19
-  Time: 9:50 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="business.User" %>
-<% User user = (User) request.getAttribute("user"); %>
-<html>
-<head>
-    <title>My Mailing List</title>
-</head>
-<body>
-
-    <table>
+<%@include file="header.jsp"%>
+<%@ page import="business.User" %>
+<%
+    User user = (User)request.getAttribute("user");
+%>
+    <table class="table">
         <tr>
             <td>First Name</td>
             <th><%= user.getFirstName() %></th>
@@ -31,8 +21,7 @@
     <p>To enter another email address, click on the back button in your browser or the <b>return</b> button shown below.</p>
 
     <form action="join_email_list.jsp" method="post">
-        <input type="submit" value="Return">
+        <button class="btn" type="submit">Return</button>
     </form>
 
-</body>
-</html>
+<%@include file="footer.jsp"%>

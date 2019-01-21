@@ -16,13 +16,27 @@ import java.io.IOException;
 public class AddToEmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String emailAddress = request.getParameter("emailAddress");
+        String message;
+        String url;
         User user = new User(request.getParameter("firstName"), request.getParameter("lastName"), request.getParameter("emailAddress"));
-       String path = getServletContext().getRealPath("/WEB-INF") + File.separator + "EmailList.json";
-        UserIO.addRecord(user, path);
+        if(firstName.length() == 0 ||
+            lastName.length() == 0 ||
+            emailAddress.length() == 0) {
+            message = "Please fill out all three text boxes.";
+            url = "/join_email_list.jsp";
+        } else {
+            message = "";
+            String path = getServletContext().getRealPath("/WEB-INF") + File.separator + "EmailList.json";
+            UserIO.addRecord(user, path);
+            url = "/display_email_entry.jsp";
+        }
 
         // store user object in request object
         request.setAttribute("user", user);
-        String url = "/display_email_entry.jsp";
+        request.setAttribute("message", message);
 
         // forward request and response objects to JSP page
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
