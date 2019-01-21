@@ -12,17 +12,15 @@ public class UserIO {
         File file = new File(filename);
         JsonObjectBuilder jsonObject = Json.createObjectBuilder();
         jsonObject.add("Email Address", user.getEmailAddress()).add("First Name", user.getFirstName()).add("Last Name", user.getLastName());
-        JsonArray array;
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         if(file.exists()) {
             JsonReader in = Json.createReader(new FileInputStream(file));
-            array = in.readArray();
+            arrayBuilder = Json.createArrayBuilder(in.readArray());
             in.close();
-        } else {
-            array = JsonArray.EMPTY_JSON_ARRAY;
         }
         JsonWriter out = Json.createWriter(new FileWriter(file, false));
-        array.add(jsonObject.build());
-        out.writeArray(array);
+        arrayBuilder.add(jsonObject.build());
+        out.writeArray(arrayBuilder.build());
         out.close();
     }
 

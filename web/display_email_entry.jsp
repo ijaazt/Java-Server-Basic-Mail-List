@@ -16,7 +16,7 @@
     <table>
         <tr>
             <td>First Name</td>
-            <td><%= user.getFirstName() %></td>
+            <th><%= user.getFirstName() %></th>
         </tr>
         <tr>
             <td>Last Name</td>
